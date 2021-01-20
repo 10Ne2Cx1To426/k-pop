@@ -1,12 +1,62 @@
-<% if user_signed_in? %>
-     <li><%= "#{current_user.nickname}でログイン中" %></li>
-     <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
-<% else %>
-     <p>ログインしていません</p>
-     <li><%= link_to 'ログイン', new_user_session_path %></li>
-     <li><%= link_to '新規登録', new_user_registration_path %></li>
-<% end %>
-
-<%= link_to 'イベント一覧', events_path %>
-<%= link_to 'コミュニティ一覧', groups_path %>
-<%= link_to 'ユーザー一覧', users_path %>
+<div class="index-body">
+  <div class="container">
+    <div class="top-wrap">
+      <div class="top-link">
+        <ul class="all-link">
+          <li><%= link_to image_tag("events.png", class: :top_link ), events_path %></li>
+          <li><%= link_to image_tag("community.png", class: :top_link ), groups_path %></li>
+          <li><%= link_to image_tag("friends.png", class: :top_link ), users_path %></li>
+        </ul>
+      </div>
+    </div>
+    <div class="image-wrap">
+       <div class="head-image">
+         <div class="slide">
+          <%= image_tag "NCT.jpg", class:"img", alt:"nct" %>
+          <%= image_tag "BTS.jpg", class:"img", alt:"bts" %>
+          <%= image_tag "SEVENTEEN.jpg", class:"img", alt:"seventeen" %>
+          <%= image_tag "Stray kids.jpg", class:"img", alt:"skz" %>
+          <%= image_tag "TXT.jpg", class:"img", alt:"txt" %>
+         </div>
+       </div>
+    </div>
+    <div class="event-wrap">
+      <div class="event-contain">
+        <div class="event-title">
+          <%= image_tag "events.png", class: :event_title %>
+        </div>
+        <ul class="event-images">
+          <% @events.each do |event| %>
+            <li class="image">
+            <%= link_to image_tag(event.image, class: :image, width: 426, height: 418), event_path(event) %>
+            <%#= event.name %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="indent-wrap">
+    </div>
+    <div class="community-wrap">
+      <div class="community-container">
+        <div class="community-title">
+          <%= image_tag "community.png", class: :community_title %>
+        </div>
+        <div class="community-content">
+          <ul class="community-images">
+            <% @groups.each do |group| %>
+              <li class="c-image">
+                 <div class="community-image">
+                   <%= link_to image_tag(group.image, class: :img, wigth: 426, height: 418), group_messages_path(group) %>
+                 <div>
+                 <%#= group.text %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="last-indent-wrap">
+    </div>
+  </div>
+</div>

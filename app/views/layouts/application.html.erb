@@ -1,25 +1,45 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>KPop</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="ファン同士の交流を応援">
+    <meta name="viewport" content="width=device-width">
+    <title>K-Community</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.18.1/build/cssreset/cssreset-min.css">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP:400,700,900&display=swap" rel="stylesheet">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-  <% if user_signed_in? %>
-    <div class="nav__right">
-      <%= link_to "top", root_path %>
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: :nav__logout %>
-      <%= link_to "MY PAGE", user_path(current_user.id) %>
-  <% else %>
-    <div class="nav__right">
-      <%= link_to "ログイン", new_user_session_path, class: :nav__btn %>
-      <%= link_to "新規登録", new_user_registration_path, class: :nav__btn %>
-  <% end %>
+    <div class="header-top">
+      <div class="inner">
+        <div class="nav">
+          <div class="nav_left">
+            <%= link_to image_tag("logo.png", class: :logo), root_path %>
+            <% if user_signed_in? %>
+              <p class="top-name">ログイン : <a class="top-nickname"><%= current_user.nickname %></a>
+            <% end %>
+          </div>
+          <% if user_signed_in? %>
+            <div class="nav__right">
+             <%= link_to "LOG OUT", destroy_user_session_path, method: :delete, class: :nav__btn %>
+             <%= link_to "MY PAGE", user_path(current_user.id), class: :nav__btn %>
+             </div>
+          <% else %>
+            <div class="nav__right">
+              <%= link_to "LOG IN", new_user_session_path, class: :nav__btn %>
+              <%= link_to "SIGN UP", new_user_registration_path, class: :nav__btn %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
     <%= yield %>
+    <div class="footer">
+      <div>@Copy right<div>
+    </div>
   </body>
 </html>

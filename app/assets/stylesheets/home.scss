@@ -1,3 +1,198 @@
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import url(http://fonts.googleapis.com/earlyaccess/notosansjp.css);
+@import url(https://fonts.googleapis.com/css?family=Pacifico);
+
+/*
+body{
+	font: 14px/1.9 'Noto Sans JP', Arial, Verdana, 游ゴシック, YuGothic,'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', メイリオ, Meiryo,sans-serif;
+	font-weight: 300;
+	-webkit-text-size-adjust:100%;
+	overflow-x: hidden;
+	color: #fff;
+  background: #000;
+  width: 100%;
+}
+*/
+body{
+  background: #000;
+  width: 100%;
+}
+
+/* ヘッダー */
+.header-top{
+  background-color: black;
+  padding-top: 20px;
+}
+.inner {
+  width: 1024px;
+  margin: 0 auto;
+}
+.nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  width: 200px;
+}
+.nav__btn{
+  display: inline-block;
+  padding: 0.6em 2.4em;
+  font-size: 1.2em;
+  color: #ffffff;
+  text-decoration: none;
+  user-select: none;
+  border: 3px #ffffff solid;
+  border-radius: 3px;
+  transition: 0.4s ease;
+}
+.top-name{
+  font-size: 15px;
+}
+.top-nickname{
+  font-weight: bold;
+  color: #ff9900;
+  text-decoration: none;
+}
+.nav__btn:hover{
+  color: #fff;
+  background: #c7c7c7;
+}
+
+/*　トップページ */
+.index-body{
+  text-align: center;
+  width: 100%;
+  background-color: black;
+}
+
+/* トップのリンク */
+.top-wrap{
+  margin: 30px 0;
+  width: 100%;
+}
+.all-link{
+  display: flex;
+  justify-content: space-around;
+}
+.top_link{
+  width: 150px;
+  object-fit: cover;
+}
+/* トップ画像 */
+.image-wrap{
+  margin: 30px 0;
+  width: 100%;
+}
+/*=== 画像の表示エリア ================================= */
+.slide {
+  position   : relative;
+  overflow   : hidden;
+                    /* 画像のサイズに合わせて変更ください */
+  width:100%;
+  height:556px;
+  margin:auto;      /* サンプルは中央寄せの背景：白 */
+  background : #fff;
+}
+ 
+ /*=== 画像の設定 ======================================= */
+.slide img {
+  display    : block;
+  position   : absolute;
+                      /* 画像のサイズを表示エリアに合せる */
+  width      : inherit;
+  height     : inherit;
+  left       : 100%;
+	animation  : slideAnime 15s ease infinite;
+	object-fit: cover;
+}
+ 
+ /*=== スライドのアニメーションを段差で開始する ========= */
+.slide img:nth-of-type(1) { animation-delay: 0s }
+.slide img:nth-of-type(2) { animation-delay: 3s }
+.slide img:nth-of-type(3) { animation-delay: 6s }
+.slide img:nth-of-type(4) { animation-delay: 9s }
+.slide img:nth-of-type(5) { animation-delay: 12s }
+ 
+ /*=== スライドのアニメーション ========================= */
+@keyframes slideAnime{
+   0% { left: 100%  }
+   2% { left: 0     }
+  18% { left: 0     }
+  20% { left: -100% }
+ 100% { left: -100% }
+}
+
+/* イベント */
+.event-wrap{
+  margin: 30px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.event-contain{
+  margin: 20px, 0;
+}
+.event_title{
+  width: 200px;
+  object-fit: cover;
+}
+.event-images li{
+  float: left;
+  width: calc(100% / 3);
+  line-height: 0;
+  display: flex;
+  justify-content: center;
+}
+.image{
+  width: 100%;
+  object-fit: cover;
+}
+
+/* 行間 */
+.indent-wrap{
+  height: 50px;
+  width: 100%;
+  background-color: black;
+}
+/* コミュニティ */
+.community-wrap{
+  margin: 30px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.community_title{
+  width: 250px;
+  object-fit: cover;
+}
+.community-images li{
+  float: left;
+  width: calc(100% / 3);
+  line-height: 0;
+  display: flex;
+  justify-content: center;
+}
+.img{
+  width: 100%;
+  object-fit: cover;
+}
+
+/* 末尾 */
+.last-indent-wrap{
+  height: 100px;
+  width: 100%;
+}
+
+.footer{
+  width: 100%;
+  height: 100px;
+  background-color: rgb(126, 126, 126);
+  text-align: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 20px;
+}
