@@ -1,0 +1,29 @@
+<div>
+<b>タグリスト</b>
+<% @tag_list.each do |list| %>
+  <p><%= link_to list.tag_name, events_path(tag_id: list.id) %>(<%= list.events.count %>)</p>
+<% end %>
+<%= link_to 'イベントを作成する', new_event_path %>
+<% @events.each do |event| %>
+  <div>
+  <%= image_tag event.image.variant(resize: '30x30'), class: 'event-image' if event.image.attached? %>
+    <p>
+      <%= link_to "#{event.name}", event_path(event) %>
+    </p>
+
+    <p>
+      主催者：<%= event.user.nickname %>
+    </p>
+    <ul>
+      <li>
+        <% event.tags.each do |tag| %>
+          #<%= link_to tag.tag_name, events_path(tag_id: tag.id) %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+  <% end %>
+</div>
+
+
+<%= link_to '戻る', root_path %>

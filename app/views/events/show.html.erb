@@ -1,0 +1,64 @@
+<div>
+  <div>
+    <%= image_tag @event.image.variant(resize: '500x500'), class: 'event-image' if @event.image.attached? %>
+    <p>
+      イベント名：<%= @event.name %>
+    </p>
+    <p>
+      詳細：<%= @event.text %>
+    </p>
+    <p>
+      開催日時：<%= @event.date %>
+    </p>
+    <p>
+      開始時間：<%= @event.start_time %>
+    </p>
+    <p>
+      終了予定時間：<%= @event.finish_time %>
+    </p>
+    <div>
+    開催地：
+    <p>
+      <%= @event.prefecture.name %>
+    </p>
+    <p>
+      <%= @event.postal_code %>
+    </p>
+    <p>
+      <%= @event.city %>
+    </p>
+    <p>
+      <%= @event.house_number %>
+    </p>
+    <% if @event.building.present? %>
+    <p>
+      <%= @event.house_number %>
+    </p>
+    <% end %>
+    </div>
+    <p>
+      主催者：<%= @event.user.nickname %>
+    </p>
+    <ul>
+      <li>
+        <% @event.tags.each do |tag| %>
+          #<%= tag.tag_name %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<% if user_signed_in? %>
+  <% unless @event.user_id == current_user.id %>
+    <%= link_to 'このイベントに参加する', event_joins_path(@event) %>
+  <% else %>
+    <%= link_to '編集', edit_event_path(@event) %>
+    <%= link_to 'このイベントを削除する', event_path(@event), method: :delete %>
+  <% end %>
+<% end %>
+<br>
+現在の参加予定人数：<%= @join.count %>人
+
+<br>
+<%= link_to '戻る', root_path %>

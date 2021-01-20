@@ -1,0 +1,19 @@
+<h5>グループ一覧</h5>
+<% @groups.each do |group| %>
+  <%= image_tag group.image.variant(resize: '50x50'), class: 'group-image' if group.image.attached? %>
+  <%= group.name %><br>
+  <%= group.text %><br>
+  <% group.tags.each do |tag| %>
+          #<%= tag.tag_name %>
+
+  <% end %><br>
+  
+  <%= link_to 'このグループに参加する', group_messages_path(group) %><br>
+  <% if group.favorited_by?(current_user) %>
+    <p>お気に入り解除：<%= link_to group.favorites.count, group_favorites_path(group), method: :delete %></p>
+  <% else %>
+    <p>お気に入り登録：<%= link_to group.favorites.count, group_favorites_path(group), method: :post %></p>
+  <% end %>
+<% end %>
+<%= link_to 'コミュニティを作成する', new_group_path %>
+<%= link_to 'top page', root_path %>

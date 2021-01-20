@@ -1,0 +1,19 @@
+<%= form_with model: @group, local: true do |f|%>
+  <div>
+  <%= f.label :name %>
+  <%= f.text_field :name, placeholder: 'コミュニティ名を記入' %>
+  </div>
+  <div>
+  <%= f.label :text %>
+  <%= f.text_field :text, placeholder: 'コミュニティの詳細' %>
+  </div>
+  <div class="tag">
+    <%= f.label :tag %>
+    <%= f.text_field :tag_name, value: @tag_list %>
+  </div>
+  <div class="field">
+    <%= f.label :image %><br/>
+    <%= f.file_field :image %>
+  </div>
+  <%= f.submit "コミュニティを作成" %>
+<% end %>

@@ -1,0 +1,13 @@
+<h1>ユーザー一覧</h1>
+<h5>お互いにフォローしているユーザー</h5>
+<% @match_users.each do |user| %>
+  <%= user.nickname %>
+  <%= link_to "#{user.nickname}さんのページへいく", user_path(user.id) %><br>
+<% end %>
+<h5>ユーザー</h5>
+<% @users.each do |user| %>
+  <% unless user.id == current_user.id %>
+  <%= user.nickname %>
+  <%= link_to "#{user.nickname}さんのページへいく", user_path(user.id) %><br>
+  <% end %>
+<% end %>

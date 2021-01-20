@@ -1,0 +1,26 @@
+<h1>ユーザーページ</h1>
+<% if @user.image.attached? %>
+  <%= image_tag @user.image.variant(resize: '500x500') %>
+<% end %>
+名前：<%= @user.nickname %>
+
+<% if current_user != @user %>
+  <% if @user.followed_by?(current_user) %>
+      <p><%=link_to "フォロー済み", user_relationships_path(@user.id), method: :delete %></p>
+  <% else %>
+      <p><%=link_to "フォローする", user_relationships_path(@user.id), method: :post %></p>
+  <% end %>
+
+  <% if (current_user.followed_by? @user) && (@user.followed_by? current_user) %>
+    <% if @isRoom == true %>
+      <%= link_to 'Direct Message', room_path(@roomId) %>
+    <% else %>
+      <%= form_with model: @room, local: true do |f| %>
+        <%= fields_for @entry, local: true do |e| %>
+          <%= e.hidden_field :user_id, value: @user.id %>
+        <% end %>
+        <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,0 +1,49 @@
+このイベントに参加しますか？
+<div>
+  <div>
+    <p>
+      イベント名：<%= @event.name %>
+    </p>
+    <p>
+      開催日時：<%= @event.date %>
+    </p>
+    <p>
+      開始時間：<%= @event.start_time %>
+    </p>
+    <p>
+      終了予定時間：<%= @event.finish_time %>
+    </p>
+    <div>
+    開催地：
+    <p>
+      <%= @event.prefecture.name %>
+    </p>
+    <p>
+      <%= @event.postal_code %>
+    </p>
+    <p>
+      <%= @event.city %>
+    </p>
+    <p>
+      <%= @event.house_number %>
+    </p>
+    <% if @event.building.present? %>
+    <p>
+      <%= @event.house_number %>
+    </p>
+    <% end %>
+    </div>
+    <p>
+      主催者：<%= @event.user.nickname %>
+    </p>
+    <ul>
+      <li>
+        <% @event.tags.each do |tag| %>
+          #<%= tag.tag_name %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<%= link_to '参加する', event_joins_path(@event), method: :post %>

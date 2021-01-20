@@ -1,0 +1,20 @@
+<div>
+  <%= message.user.nickname %>:
+</div>
+<div>
+  <%= message.content %>
+</div>
+<div>
+  <%= image_tag message.image.variant(resize: '50x50') if message.image.attached? %>
+</div>
+<div>
+  <%= message.created_at %>
+</div>
+
+<% if current_user != message.user %>
+  <% if message.user.followed_by?(current_user) %>
+      <p><%=link_to "フォロー済み", user_relationships_path(message.user.id), method: :delete %></p>
+  <% else %>
+      <p><%=link_to "フォローする", user_relationships_path(message.user.id), method: :post %></p>
+  <% end %>
+<% end %>

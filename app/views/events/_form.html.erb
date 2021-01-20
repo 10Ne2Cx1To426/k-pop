@@ -1,0 +1,67 @@
+<%= form_with(model: event, local: true) do |f| %>
+
+  <%= render 'shared/error_messages', model: f.object %>
+
+  <div>
+    <div>
+      <%= f.label :name,  "イベント名" %>
+      <%= f.text_area :name %>
+    </div>
+    <div>
+      <%= f.label :text,  "イベントの詳細" %>
+      <%= f.text_area :text %>
+    </div>
+    <div>
+      <%= f.label :date,  "開催予定日" %>
+      <%= f.date_select(:date,
+                        prompt:"--",
+                        start_year:Time.now.year,
+                        end_year:Time.now.year+5,
+                        use_month_numbers: true,
+                        date_separator:'/') %>
+    </div>
+    <div>
+      <%= f.label :start_time, "開始時間" %>
+      <%= f.time_field :start_time %>
+    </div>
+    <div>
+      <%= f.label :finish_time, "終了時間" %>
+      <%= f.time_field :finish_time %>
+    </div>
+    <div>
+      <%= f.label :postal_code, "郵便番号" %>
+      <%= f.text_area :postal_code %>
+    </div>
+    <div>
+      <%= f.label :prefecture_id, "都道府県" %>
+      <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"select-box", id:"prefecture"}) %>
+    </div>
+    <div>
+      <%= f.label :city, "市区町村" %>
+      <%= f.text_area :city %>
+    </div>
+    <div>
+      <%= f.label :house_number, "番地" %>
+      <%= f.text_area :house_number %>
+    </div>
+    <div>
+      <%= f.label :building, "建物名" %>
+      <%= f.text_area :building %>
+    </div>
+    <div class="field">
+      <%= f.label :image %><br/>
+      <%= f.file_field :image %>
+    </div>
+
+    <div class="tag-field", id='tag-field'>
+    <%= f.label :tag %>
+    <%= f.text_field :tag_name, value: @tag_list, id:"events_tag_name" %>
+    </div>
+    <div id="search-result">
+    </div>
+  </div>
+
+  <div>
+    <%= f.submit "OK", class: "submit-btn" %>
+  </div>
+<% end %>
