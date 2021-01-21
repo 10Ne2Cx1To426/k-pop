@@ -186,6 +186,8 @@ ActiveRecord::Schema.define(version: 2021_01_21_014725) do
   add_foreign_key "entries", "rooms"
   add_foreign_key "entries", "users"
   add_foreign_key "events", "users"
+  add_foreign_key "favorites", "groups"
+  add_foreign_key "favorites", "users"
   add_foreign_key "group_users", "groups"
   add_foreign_key "group_users", "users"
   add_foreign_key "groups", "users"
