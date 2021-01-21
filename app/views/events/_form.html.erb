@@ -53,6 +53,11 @@
       <%= f.file_field :image %>
     </div>
 
+    <div class="field">
+      <%= f.label :member, "参加可能人数" %><br/>
+      <%= f.text_field :member %>
+    </div>
+
     <div class="tag-field", id='tag-field'>
     <%= f.label :tag %>
     <%= f.text_field :tag_name, value: @tag_list, id:"events_tag_name" %>

@@ -16,25 +16,22 @@
     <p>
       終了予定時間：<%= @event.finish_time %>
     </p>
+    <p>
+      参加可能人数：<%= @event.member %>
+    </p>
     <div>
     開催地：
     <p>
-      <%= @event.prefecture.name %>
-    </p>
-    <p>
-      <%= @event.postal_code %>
-    </p>
-    <p>
-      <%= @event.city %>
+      〒<%= @event.postal_code %> <%= @event.prefecture.name %> <%= @event.city %>
     </p>
     <p>
       <%= @event.house_number %>
-    </p>
     <% if @event.building.present? %>
-    <p>
       <%= @event.house_number %>
-    </p>
     <% end %>
+    </p>
+    <%= content_tag(:iframe, 'map', src:'https://www.google.com/maps/embed/v1/place?key=AIzaSyD53bHEiDaJn4PO6sbrR7WJ_waRXIO4OeU&q=' + @event.prefecture.name + @event.city + @event.house_number, width: 800, height: 400, frameborder: 0) %>
+    <br>
     </div>
     <p>
       主催者：<%= @event.user.nickname %>
@@ -51,12 +48,39 @@
 
 <% if user_signed_in? %>
   <% unless @event.user_id == current_user.id %>
-    <%= link_to 'このイベントに参加する', event_joins_path(@event) %>
+    <% if @event.joined_by?(current_user) %>
+      <p>このイベントに参加予定です<p>
+    <% else %>
+      <% if @join.count < @event.member %>
+        <%= link_to 'このイベントに参加する', event_joins_path(@event) %>
+      <% else %>
+        参加可能人数の上限に達しました
+      <% end %>
+    <% end %>
+    <%= form_with(model: [@event, @comment], local: true) do |f|%>
+      <div class="field">
+        <%= f.label :text, "コメント" %><br />
+        <%= f.text_field :text %>
+      </div>
+      <div class="actions">
+        <%= f.submit "送信する", class: :form__btn  %>
+      </div>
+    <% end %> 
   <% else %>
     <%= link_to '編集', edit_event_path(@event) %>
     <%= link_to 'このイベントを削除する', event_path(@event), method: :delete %>
   <% end %>
 <% end %>
+<ul class="comments_lists">
+  <% if @comments %>
+    <% @comments.each do |comment| %>
+      <li class="comments_list">
+        <%= comment.text %>
+        <%= link_to comment.user.nickname, user_path(comment.user_id), class: :comment_user %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
 <br>
 現在の参加予定人数：<%= @join.count %>人
 

@@ -5,7 +5,7 @@
   <%= message.content %>
 </div>
 <div>
-  <%= image_tag message.image.variant(resize: '50x50') if message.image.attached? %>
+  <%= image_tag message.image.variant(resize: '50x50') if message.image.attached?, class: "message-image" %>
 </div>
 <div>
   <%= message.created_at %>

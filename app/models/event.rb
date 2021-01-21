@@ -9,7 +9,9 @@ class Event < ApplicationRecord
   # ユーザーとのアソシエーション
   belongs_to :user
   # joinとのアソシエーション
-  has_one :join
+  has_many :joins
+  # イベントに対するコメントのバリデーション 
+  has_many :comments, dependent: :destroy
   #ActiveHasyの設定(都道府県)
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
@@ -24,6 +26,8 @@ class Event < ApplicationRecord
     validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: "is invalid. Include hyphen(-)"}
     validates :city, format: { with: /\A[ぁ-んァ-ン一-龥]/, message: "is invalid. Input full-width characters."}
     validates :house_number
+
+    validates :member
 
     validates :tag_name
   end
@@ -47,5 +51,9 @@ class Event < ApplicationRecord
       blog_tag = Tag.find_or_create_by(tag_name:new_name)
       self.tags << blog_tag
     end
+  end
+  # イベント参加人数を数えるためのメソッド
+  def joined_by?(user)
+    joins.where(user_id: user.id).exists?
   end
 end

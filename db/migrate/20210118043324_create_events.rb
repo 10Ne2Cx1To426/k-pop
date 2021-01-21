@@ -13,6 +13,8 @@ class CreateEvents < ActiveRecord::Migration[6.0]
       t.string :house_number,    null: false
       t.string :building
 
+      t.integer :member,         null: false
+
       t.references :user, foreign_key: true
       t.timestamps
     end

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :joins, only: [:index, :create, :destroy]
+    resources :comments, only: :create
   end
 
   resources :groups, only: [:index, :new, :create] do

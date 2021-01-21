@@ -3,6 +3,27 @@
   <%= image_tag @user.image.variant(resize: '500x500') %>
 <% end %>
 名前：<%= @user.nickname %>
+<% if @user.id == current_user.id %>
+  <%= link_to '登録情報を編集する', edit_user_path(current_user) %>
+<% end %>
+<br>
+<% if @user.id == current_user.id %>
+  お気に入りしたコミュニティ<br>
+  <% @favorites.each do |f| %>
+    <p><%= link_to f.group.name, group_messages_path(f.group.id) %></p>
+  <% end %>
+  <br>
+  参加予定のイベント
+  <% @joins.each do |j| %>
+    <%= link_to j.event.name, event_path(j.event.id) %>
+  <% end %>
+<% end %>
+<br>
+開催予定のイベント
+<% @events.each do |e| %>
+  <%= link_to e.name, event_path(e.id) %><br>
+<% end %>
+
 
 <% if current_user != @user %>
   <% if @user.followed_by?(current_user) %>

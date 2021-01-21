@@ -18,17 +18,17 @@ class User < ApplicationRecord
   
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
 
-  with_options presence: true, format: { with: PASSWORD_REGEX, message:'には英字と数字の両方を含めて設定してください' }, length: { minimum: 6 }, confirmation: true do
+  with_options presence: true, format: { with: PASSWORD_REGEX, message:'には英字と数字の両方を含めて設定してください' }, length: { minimum: 6 }, confirmation: true, on: :create do
     validates :password
   end
 
-  validates :password_confirmation, presence: true
+  validates :password_confirmation, presence: true, on: :create
   validates :image, presence: true
 
   # イベントのアソシエーション
   has_many :events
   # joinとのアソシエーション
-  has_one :join
+  has_many :joins
   # コミュニティのアソシエーション
   has_many :group_users, dependent: :destroy
   has_many :groups
@@ -36,6 +36,8 @@ class User < ApplicationRecord
   has_many :messages
   # favとのassociation
   has_many :favorites
+  # イベントに対するコメントのバリデーション
+  has_many :comments
 
   # 自分がフォローしているユーザーとの関連
   has_many :active_relationships, class_name: "Relationship", foreign_key: :following_id

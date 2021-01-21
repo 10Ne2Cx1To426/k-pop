@@ -11,6 +11,6 @@ class DmsController < ApplicationController
   private
 
   def params_direct_message
-    params.require(:dm).permit(:user_id, :message, :room_id).merge(user_id: current_user.id)
+    params.require(:dm).permit(:user_id, :message, :room_id, :image).merge(user_id: current_user.id)
   end
 end

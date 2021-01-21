@@ -24,7 +24,7 @@ class EventsController < ApplicationController
     tag_list = params[:event][:tag_name].gsub(" ", "").split(",")
       if @event.save
         @event.save_events(tag_list)
-        redirect_to root_path
+        redirect_to events_path
       else
         render :new
       end
@@ -38,7 +38,7 @@ class EventsController < ApplicationController
     tag_list = params[:event][:tag_name].split(",")
     if @event.update(event_params)
       @event.save_events(tag_list)
-      redirect_to root_path
+      redirect_to event_path(@event)
     else
       render :edit
     end
@@ -46,24 +46,19 @@ class EventsController < ApplicationController
 
   def show
     @join = Join.where(event_id: @event.id)
+    @comment = Comment.new
+    @comments = @event.comments.includes(:user)
   end
 
   def destroy
     @event.destroy
-    redirect_to root_path
+    redirect_to events_path
   end
-
-  def search
-    return nil if params[:keyword] == ""
-    tag = Tag.where(['tag_name LIKE ?', "%#{params[:keyword]}%"] )
-    render json:{ keyword: tag }
-  end
-
 
   private
 
   def event_params
-    params.require(:event).permit(:name, :text, :date, :prefecture_id, :start_time, :finish_time, :postal_code, :city, :house_number, :building, :tag_name, :image).merge(user_id: current_user.id)
+    params.require(:event).permit(:name, :text, :date, :prefecture_id, :start_time, :finish_time, :postal_code, :city, :house_number, :building, :tag_name, :image, :member).merge(user_id: current_user.id)
   end
 
   def set_event

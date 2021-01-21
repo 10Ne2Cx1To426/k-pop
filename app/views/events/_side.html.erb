@@ -1,0 +1,11 @@
+<b>タグリスト</b>
+<div class="tag-list">
+  <ul>
+    <% @tag_list.each do |list| %>
+      <li class="tag">
+        #<%= link_to list.tag_name, events_path(tag_id: list.id), class: :tag %> <span><%= list.events.count %></span>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<%= link_to 'イベントを作成する', new_event_path %>
