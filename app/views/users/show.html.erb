@@ -6,6 +6,8 @@
 <% if @user.id == current_user.id %>
   <%= link_to '登録情報を編集する', edit_user_path(current_user) %>
 <% end %>
+自己紹介<br>
+<%= @user.text %>
 <br>
 <% if @user.id == current_user.id %>
   お気に入りしたコミュニティ<br>
