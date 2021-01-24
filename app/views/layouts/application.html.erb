@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="description" content="ファン同士の交流を応援">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>K-Community</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,29 +14,35 @@
   </head>
 
   <body>
-    <div class="header-top">
+    <header>
       <div class="inner">
-        <div class="nav">
-          <div class="nav_left">
-            <%= link_to image_tag("logo.png", class: :logo), root_path %>
+        <div class="top">
+          <div class="logo">
+            <%= link_to image_tag("lo-go.png", class: "logo", height: 30), root_path %>
+          </div>
+          <div class="btn">
             <% if user_signed_in? %>
-              <p class="top-name">ログイン : <a class="top-nickname"><%= current_user.nickname %></a>
+              <div class="btn__right">
+                <%= link_to 'LOG OUT', destroy_user_session_path, method: :delete, class: "btn" %>
+                <%= link_to 'MY PAGE', user_path(current_user.id), class: "btn" %>
+              </div>
+            <% else %>
+              <div class="btn__right">
+                <%= link_to 'LOG IN', new_user_session_path, class: "btn" %>
+                <%= link_to 'SIGN UP', new_user_registration_path, class: "btn" %>
+              </div>
             <% end %>
           </div>
-          <% if user_signed_in? %>
-            <div class="nav__right">
-             <%= link_to "LOG OUT", destroy_user_session_path, method: :delete, class: :nav__btn %>
-             <%= link_to "MY PAGE", user_path(current_user.id), class: :nav__btn %>
-             </div>
-          <% else %>
-            <div class="nav__right">
-              <%= link_to "LOG IN", new_user_session_path, class: :nav__btn %>
-              <%= link_to "SIGN UP", new_user_registration_path, class: :nav__btn %>
-            </div>
-          <% end %>
         </div>
+        <div class="bottom">
+          <ul class="links">
+            <li><%= link_to 'EVENTS', events_path %></li>
+            <li><%= link_to 'COMMUNITY', groups_path %></li>
+            <li><%= link_to 'FRIENDS', users_path %></li>
+          </ul>
+        <div>
       </div>
-    </div>
+    </header>
     <%= yield %>
     <div class="footer">
       <div>@Copy right<div>

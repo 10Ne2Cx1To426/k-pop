@@ -1,18 +1,9 @@
 <div class="index-body">
   <div class="container">
-    <div class="top-wrap">
-      <div class="top-link">
-        <ul class="all-link">
-          <li><%= link_to image_tag("events.png", class: :top_link ), events_path %></li>
-          <li><%= link_to image_tag("community.png", class: :top_link ), groups_path %></li>
-          <li><%= link_to image_tag("friends.png", class: :top_link ), users_path %></li>
-        </ul>
-      </div>
-    </div>
     <div class="image-wrap">
        <div class="head-image">
          <div class="slide">
-          <%= image_tag "NCT.jpg", class:"img", alt:"nct" %>
+          <%= image_tag "NCT.jpg", class:"img", alt:"nct", width: 800 %>
           <%= image_tag "BTS.jpg", class:"img", alt:"bts" %>
           <%= image_tag "SEVENTEEN.jpg", class:"img", alt:"seventeen" %>
           <%= image_tag "Stray kids.jpg", class:"img", alt:"skz" %>
@@ -23,7 +14,8 @@
     <div class="event-wrap">
       <div class="event-contain">
         <div class="event-title">
-          <%= image_tag "events.png", class: :event_title %>
+          <h1>EVENTS</h1>
+          <%#= image_tag "events.png", class: :event_title %>
         </div>
         <ul class="event-images">
           <% @events.each do |event| %>
@@ -40,7 +32,8 @@
     <div class="community-wrap">
       <div class="community-container">
         <div class="community-title">
-          <%= image_tag "community.png", class: :community_title %>
+          <h1>COMMUNITY</h1>
+          <%#= image_tag "community.png", class: :community_title %>
         </div>
         <div class="community-content">
           <ul class="community-images">
